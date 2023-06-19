@@ -8,5 +8,11 @@
       "resolveJsonModule": true,
       "sourceMap": true,
       "allowJs": true
-    }
+    },
+    "include": [
+      "examples",
+      "lib",
+      "test"
+    ]
 }
+
