@@ -515,6 +515,7 @@ export interface NamespacedApi<ReturnType = unknown> {
   alerts: AlertsNsCommands<ReturnType>;
   document: DocumentNsCommands<ReturnType>;
   window: WindowNsCommands<ReturnType>;
+  firefox: FirefoxNsCommands<ReturnType>;
 
   assert: Assert<ReturnType>;
   verify: Assert<ReturnType>;
@@ -5205,6 +5206,26 @@ export interface CookiesNsCommands<ReturnType = unknown> {
   ): Awaitable<IfUnknown<ReturnType, this>, null>;
 }
 
+export interface addonId{
+  id: string;
+}
+type Context = 'content' | 'chrome';
+export interface FirefoxNsCommands<ReturnType = unknown> {
+  getContext(): Promise<Context>;
+  setContext(ctx: Promise<undefined>): Promise<void>;
+
+  installAddon(
+    path:string,
+    callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void
+  ): Awaitable<IfUnknown<ReturnType, this>, string>;
+
+  uninstallAddon(
+    id: string | Promise<string>,
+    callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void
+  ): Awaitable<IfUnknown<ReturnType, this>, void>;
+  
+} 
+
 export interface AlertsNsCommands<ReturnType = unknown> {
   /**
    * Accepts the currently displayed alert dialog. Usually, this is equivalent to clicking on the 'OK' button in the dialog.
@@ -7559,6 +7580,7 @@ export const cookies: CookiesNsCommands;
 export const alerts: AlertsNsCommands;
 export const document: DocumentNsCommands;
 export const window: WindowNsCommands;
+export const firefox: FirefoxNsCommands;
 
 export const assert: Assert;
 export const verify: Assert;
