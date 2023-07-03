@@ -5250,9 +5250,9 @@ export interface ChromeNsCommands<ReturnType = unknown>{
 
 export interface FirefoxNsCommands<ReturnType = unknown> {
   getContext(): Awaitable<IfUnknown<ReturnType, this>, 'content' | 'chrome'>;
-  setContext(ctx: 'content' | 'chrome' | PromiseLike<'content' | 'chrome'>): Awaitable<IfUnknown<ReturnType, this>, null>;
-  installAddon(path:string, temporary?: boolean): Awaitable<IfUnknown<ReturnType, this>, string>;
-  uninstallAddon(addonId: string | PromiseLike<string>): Awaitable<IfUnknown<ReturnType, this>, null>;
+  setContext(ctx: Promise<string>): Awaitable<IfUnknown<ReturnType, this>, void>;
+  installAddon(path:string, temporary?: boolean): Awaitable<IfUnknown<string, this>, Promise<string>>;
+  uninstallAddon(id: string | Promise<string>): Awaitable<IfUnknown<ReturnType, this>, void>;
 } 
 
 export interface AlertsNsCommands<ReturnType = unknown> {
